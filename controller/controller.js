@@ -1,21 +1,14 @@
  
-const User = require("../user")
-const jwt = require("jsonwebtoken")
-const bcrypt = require("bcrypt")
-const { registerAuth, logInAuth } = require("../service/auth")
-const error = require("../utils/error")
  
- 
-
-
+const { registerAuth, logInAuth } = require("../service/auth") 
 const registerController =async(req,res,next)=>{
-    let{name,email,password} =req.body
+    let{name,email,password,roles,activeStatus} =req.body
     if(!name || !email || !password){
        return res.status(400).json({msg:"invalid credential"})
     }
    
     try{
-       const newUser = await registerAuth(name,email,password)
+       const newUser = await registerAuth(name,email,password,roles,activeStatus)
        return res.status(201).json({msg:"created successfully ",newUser})
  
     }
@@ -47,22 +40,9 @@ const loginController =async(req,res,next)=>{
    }
     
 }
-
-const privateController = async(req,res)=>{
  
-    console.log(req.user)
-    res.status(200).json({msg:"i am private route"})
-}
-
-const getController = (req,res)=>{
-    res.write("your app is running")
-
-    res.end()
-}
 
 module.exports={
     registerController,
-    loginController,
-    privateController,
-    getController
+    loginController, 
 }

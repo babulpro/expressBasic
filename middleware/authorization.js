@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken")
-const bcrypt = require("bcrypt")
 const User = require("../user")
 
 async function authorizedMiddleware(req,res,next){

@@ -24,15 +24,7 @@ app.use((err,req,res,next)=>{
      
         res.status(status).json({msg})
     
-})
-
-
-
- 
-
-
-
-
+}) 
 connectBd("mongodb://localhost:27017/babul", { serverSelectionTimeoutMS: 1000 }).then(()=>{
     console.log("mongodb is connected to the server")
     app.listen((3000),()=>{

@@ -1,12 +1,11 @@
 // auth.js (service)
 
-const User = require("../user");
+ 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { findUser, createUser } = require("./user");
-const error = require("../utils/error")
-
-const registerAuth = async (name, email, password) => {
+ 
+const registerAuth = async (name, email, password,roles,accountStatus) => {
     const user = await findUser("email",email)
 
     if(user){
@@ -15,7 +14,7 @@ const registerAuth = async (name, email, password) => {
    let salt = await bcrypt.genSalt(10)
    let hash = await bcrypt.hash(password,salt)
        
-   let newUser = await createUser({name,email,password:hash})
+   let newUser = await createUser({name,email,password:hash,roles ,accountStatus})
   
  
      
@@ -44,7 +43,7 @@ const logInAuth = async(email,password)=>{
     }
      
     let Token = await jwt.sign(payload,"XYZ-123",{expiresIn:"2h"})
-    console.log(Token,user.name)
+     
     return Token
 
 

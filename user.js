@@ -14,6 +14,15 @@ let userShema = new Schema({
     password:{
         type:String, 
         required:true
+    },
+    roles:{
+        type:String,
+        default:["student"]
+    },
+    accountStatus:{
+        type:String,
+        enum:['Active','Pending'],
+        default:'Pending'
     }
 })
 
